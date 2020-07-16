@@ -1,7 +1,7 @@
 node{
       def dockerImageName= 'arashy76/javadedockerapp_$JOB_NAME:$BUILD_NUMBER'
       stage('SCM Checkout'){
-         git 'https://github.com/arashy76/java-groovy-docker.git'
+         git 'https://github.com/arashy76/java-groovy-docker'
       }
       stage('Build'){
          // Get maven home path and build
@@ -20,7 +20,7 @@ node{
    
       stage('Publish Docker Image'){
          withCredentials([string(credentialsId: 'dockerpwdarashy76', variable: 'dockerPWD')]) {
-              sh "docker login -u arash.r400@gmail.com -p ${dockerPWD}"
+              sh "docker login -u arashy76 -p ${dockerPWD}"
          }
         sh "docker push ${dockerImageName}"
       }
@@ -31,11 +31,11 @@ node{
             def scriptRunner='sudo ./stopscript.sh'           
             def dockerRun= "sudo docker run -p 8082:8080 -d --name ${dockerContainerName} ${dockerImageName}" 
             withCredentials([string(credentialsId: 'deploymentserverpwd', variable: 'dpPWD')]) {
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@5.235.200.90"
-                  sh "sshpass -p ${dpPWD} scp -r stopscript.sh devops@http://5.235.200.90:/home/devops" 
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@5.235.200.90 ${changingPermission}"
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@5.235.200.90 ${scriptRunner}"
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@5.235.200.90 ${dockerRun}"
+                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@5.235.200.90"
+                  sh "sshpass -p ${dpPWD} scp -r stopscript.sh arash@http://5.235.200.90:/home/arash" 
+                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@5.235.200.90 ${changingPermission}"
+                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@5.235.200.90 ${scriptRunner}"
+                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@5.235.200.90 ${dockerRun}"
             }
             
       
