@@ -5,8 +5,9 @@ node{
       }
       stage('Build'){
          // Get maven home path and build
-         def mvnHome =  tool name: 'Apache Maven 3.6.3', type: 'maven'   
-         sh "${mvnHome}/bin/mvn package -Dmaven.test.skip=true" 
+         //def mvnHome =  tool name: 'Apache Maven 3.6.3', type: 'maven'   
+         //sh "${mvnHome}/bin/mvn package -Dmaven.test.skip=true" 
+         sh "/usr/share/maven/bin/mvn package -Dmaven.test.skip=true" 
       }       
      
      stage ('Test'){
