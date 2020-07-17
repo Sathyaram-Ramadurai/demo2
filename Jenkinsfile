@@ -33,11 +33,11 @@ node{
             def scriptRunner='sudo ./stopscript.sh'           
             def dockerRun= "sudo docker run -p 8082:8080 -d --name ${dockerContainerName} ${dockerImageName}" 
             withCredentials([string(credentialsId: 'deploymentserverpwd', variable: 'dpPWD')]) {
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@2.189.16.136"
-                  sh "sshpass -p ${dpPWD} scp -r stopscript.sh arash@2.189.16.136/home/arash" 
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@2.189.16.136 ${changingPermission}"
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@2.189.16.136 ${scriptRunner}"
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@2.189.16.136 ${dockerRun}"
+                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@http://044e75263ccc.ngrok.io"
+                  sh "sshpass -p ${dpPWD} scp -r stopscript.sh arash@http://044e75263ccc.ngrok.iohome/arash" 
+                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@http://044e75263ccc.ngrok.io ${changingPermission}"
+                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@http://044e75263ccc.ngrok.io ${scriptRunner}"
+                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@http://044e75263ccc.ngrok.io ${dockerRun}"
             }
             
       
