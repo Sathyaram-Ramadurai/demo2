@@ -7,13 +7,13 @@ node{
          // Get maven home path and build
          //def mvnHome =  tool name: 'Apache Maven 3.6.3', type: 'maven'   
          //sh "${mvnHome}/bin/mvn package -Dmaven.test.skip=true" 
-         sh "/usr/share/maven/bin/mvn package -Dmaven.test.skip=true" 
+         sh "/usr/share/maven/bin/JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 mvn package -Dmaven.test.skip=true" 
       }       
      
      stage ('Test'){
          //def mvnHome =  tool name: 'Maven 3.6.3', type: 'maven'    
          //sh "${mvnHome}/bin/mvn verify; sleep 3"
-         sh "/usr/share/maven/bin/mvn verify; sleep 3"
+         sh "/usr/share/maven/bin/JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 mvn verify; sleep 3"
       }
       
      stage('Build Docker Image'){         
