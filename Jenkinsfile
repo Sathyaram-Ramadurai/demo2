@@ -10,8 +10,9 @@ node{
       }       
      
      stage ('Test'){
-         def mvnHome =  tool name: 'Maven 3.6.3', type: 'maven'    
-         sh "${mvnHome}/bin/mvn verify; sleep 3"
+         //def mvnHome =  tool name: 'Maven 3.6.3', type: 'maven'    
+         //sh "${mvnHome}/bin/mvn verify; sleep 3"
+         sh "/usr/share/maven/bin/mvn verify; sleep 3"
       }
       
      stage('Build Docker Image'){         
