@@ -34,7 +34,7 @@ node{
             def dockerRun= "sudo docker run -p 8082:8080 -d --name ${dockerContainerName} ${dockerImageName}" 
             withCredentials([string(credentialsId: 'deploymentserverpwd', variable: 'dpPWD')]) {
                   sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@3.134.196.116"
-                  sh "sshpass -p ${dpPWD} scp -r stopscript.sh arash@3.134.196.116:/home/arash" 
+                  sh "sshpass -p ${dpPWD} scp -r stopscript.sh arash@3.134.196.116:8080/home/arash" 
                   sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@3.134.196.116 ${changingPermission}"
                   sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@3.134.196.116 ${scriptRunner}"
                   sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@3.134.196.116 ${dockerRun}"
