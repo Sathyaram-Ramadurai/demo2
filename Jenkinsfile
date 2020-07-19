@@ -37,7 +37,8 @@ node{
             def dockerRun= "sudo docker run -p 8082:8080 -d --name ${dockerContainerName} ${dockerImageName}" 
             withCredentials([string(credentialsId: 'deploymentserverpwd', variable: 'dpPWD')]) {
                  
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no ${dockerRun}"
+                  //sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no ${dockerRun}"
+                  sh "echo ${dpPWD} | sudo -S docker run -p 8082:8080 -d --name ${dockerContainerName} ${dockerImageName}"
             }
             
       
