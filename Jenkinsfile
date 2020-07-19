@@ -27,21 +27,7 @@ node{
         sh "docker push ${dockerImageName}"
       }
       
-    stage('Run Docker Image'){
-            def dockerContainerName = 'javadockerapp_$JOB_NAME_$BUILD_NUMBER'
-            def changingPermission='sudo chmod +x stopscript.sh'
-            def scriptRunner='sudo ./stopscript.sh'           
-            def dockerRun= "sudo docker run -p 8082:8080 -d --name ${dockerContainerName} ${dockerImageName}" 
-            withCredentials([string(credentialsId: 'deploymentserverpwd', variable: 'dpPWD')]) {
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@5.235.219.234"
-                  sh "sshpass -p ${dpPWD} scp -r stopscript.sh arash@5.235.219.234:/home/arash" 
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@5.235.219.234 ${changingPermission}"
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@5.235.219.234 ${scriptRunner}"
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no arash@5.235.219.234 ${dockerRun}"
-            }
-            
-      
-      }
+    
       
          
   }
