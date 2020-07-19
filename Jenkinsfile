@@ -27,7 +27,11 @@ node{
         sh "docker push ${dockerImageName}"
       }
       
-    
+    stage('Run Docker Image'){
+            def dockerContainerName = 'javadockerapp_$JOB_NAME_$BUILD_NUMBER'
+            sh "sudo docker run -p 8082:8080 -d --name ${dockerContainerName} ${dockerImageName}"
+      
+    }
       
          
   }
