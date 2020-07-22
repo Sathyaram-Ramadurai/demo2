@@ -20,7 +20,7 @@ node{
            sh "docker build -t ${dockerImageName} ."
       }  
    
-      stage('Publish Docker Image'){
+     stage('Publish Docker Image'){
          withCredentials([string(credentialsId: 'dockerpwdarashy76', variable: 'dockerPWD')]) {
               sh "docker login -u arashy76 -p ${dockerPWD}"
          }
@@ -32,7 +32,8 @@ node{
     //        sh "sudo docker run -p 8082:8080 -d --name ${dockerContainerName} ${dockerImageName}"
       
     //}
-      stage('Run Docker Image'){
+      
+     stage('Run Docker Image'){
             sh "echo successfully done !!!"
       }
          
