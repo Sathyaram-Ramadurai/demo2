@@ -33,7 +33,7 @@ node{
       
     //}
       
-     stage('Run Docker Image'){
+    stage('Run Docker Image'){
             sh "echo successfully done !!!"
       }
          
