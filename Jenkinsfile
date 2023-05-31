@@ -1,35 +1,40 @@
-node{
-      def dockerImageName= 'arashy76/javadedockerapp_$JOB_NAME:$BUILD_NUMBER'
-      stage('SCM Checkout'){
-         git 'https://github.com/Sathyaram-Ramadurai/demo2'
-      }
-      stage('Build'){
-         // Get maven home path and build
-         //def mvnHome =  tool name: 'Apache Maven 3.6.3', type: 'maven'   
-         //sh "${mvnHome}/bin/mvn package -Dmaven.test.skip=true" 
-         sh "C:/Users/10433/Downloads/apache-maven-3.9.2-bin/apache-maven-3.9.2/bin/mvn package -Dmaven.test.skip=true" 
-      }       
-     
-     stage ('Test'){
-         //def mvnHome =  tool name: 'Maven 3.6.3', type: 'maven'    
-         //sh "${mvnHome}/bin/mvn verify; sleep 3"
-         sh "C:/Users/10433/Downloads/apache-maven-3.9.2-bin/apache-maven-3.9.2/bin/mvn verify; sleep 3"
-      }
-      
-     stage('Build Docker Image'){         
-           sh "docker build -t demo2 ."
-      }  
-   
-      
-    //stage('Run Docker Image'){
-    //        def dockerContainerName = 'javadockerapp_$JOB_NAME_$BUILD_NUMBER'
-    //        sh "sudo docker run -p 8082:8080 -d --name ${dockerContainerName} ${dockerImageName}"
-      
-    //}
-      
-    stage('Run Docker Image'){
-            sh "docker run demo2"
-      }
-         
-  }
-      
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the source code from the repository
+                git 'https://github.com/Sathyaram-Ramadurai/demo2.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Build the Java application
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Run unit tests
+                sh 'mvn test'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                // Create a deployable artifact (e.g., WAR or JAR file)
+                sh 'mvn package'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Deploy the application to a web server or container
+                sh 'cp target/my-app.war C:/Users/10433/Downloads/apache-tomcat-8.5.89-windows-x64/apache-tomcat-8.5.89/webapps'
+            }
+        }
+    }
+}
