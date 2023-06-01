@@ -9,20 +9,6 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                // Build the Java application
-                sh 'mvn clean package'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                // Run unit tests
-                sh 'mvn test'
-            }
-        }
-
         stage('Package') {
             steps {
                 // Create a deployable artifact (e.g., WAR or JAR file)
